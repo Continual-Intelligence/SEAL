@@ -54,15 +54,48 @@ pip install -r requirements.txt
 
 ### 4. Configure environment
 
-Create a `.env` file in the project root and add your OpenAI API key:
+To run the SEAL framework, you will need to provide an OpenAI API key. This key is used to access the GPT models that are used for generating self-edits.
+
+Create a `.env` file in the project root and add your OpenAI API key to it:
 
 ```env
 OPENAI_API_KEY=your_openai_api_key_here
 ```
 
+The `.env` file is used to store environment variables that are specific to your local environment. The SEAL framework will automatically load the variables from this file.
+
 ### 5. SLURM users
 
 Before running any shell scripts, make sure to update the SLURM directives at the top of each `.sh` file to match your system configuration. All experiments can be run with 2 A100/H100 GPUs. Other setups may require refactoring and/or changing model sizes.
+
+
+## 📂 Project Structure
+
+The project is organized as follows:
+
+```
+.
+├── few-shot/
+│   ├── README.md
+│   ├── ...
+├── general-knowledge/
+│   ├── README.md
+│   ├── ...
+├── LICENSE
+├── README.md
+└── requirements.txt
+```
+
+*   `few-shot/`: This directory contains the code and data for the few-shot learning experiments.
+*   `general-knowledge/`: This directory contains the code and data for the general-knowledge experiments.
+*   `LICENSE`: The license for the project.
+*   `README.md`: The main README file for the project.
+*   `requirements.txt`: The Python dependencies for the project.
+
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 
 ## 📄 Citation

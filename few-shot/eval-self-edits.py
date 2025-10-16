@@ -1,3 +1,16 @@
+"""
+This script evaluates the performance of the self-edited models.
+
+The script takes as input a set of tasks and a set of LoRA checkpoints, and it
+evaluates the performance of each model on each task. The script can be used to
+evaluate the performance of the baseline model, as well as the performance of
+the self-edited models.
+
+The script is designed to be run from the command line and takes several
+arguments, including the path to the data and solution files, the path to the
+pretrained checkpoint, the path to the LoRA checkpoints folder, and the number
+of self-edits to evaluate.
+"""
 import argparse
 import glob
 import json

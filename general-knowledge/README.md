@@ -1,6 +1,16 @@
 # SEAL - general-knowledge
 
-This is an implementation of SEAL for the *general knowledge incorporation* setting, where the goal is to update or integrate new information from a passage into weights.
+This document provides instructions on how to reproduce the SEAL experiments for the *general knowledge incorporation* setting. In this setting, the goal is to update or integrate new information from a passage into the language model's weights.
+
+The experiments involve several steps, including creating synthetic data, running a training and evaluation server, and performing Reinforcement Learning (RL) training. By following this guide, you will be able to reproduce the results from the paper.
+
+## Prerequisites
+
+Before you begin, please ensure that you have the following prerequisites:
+
+*   **SLURM:** These experiments are designed to be run on a SLURM cluster. You will need to have access to a SLURM cluster and be familiar with submitting jobs using `sbatch`.
+*   **ZMQ:** The experiments use [ZMQ](https://zeromq.org/) for communication between the different components of the system. Please ensure that ZMQ is installed on your system.
+*   **Python dependencies:** Please make sure that you have installed all the Python dependencies listed in the `requirements.txt` file in the root of the project.
 
 ## Usage
 

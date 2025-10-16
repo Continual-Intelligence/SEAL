@@ -1,3 +1,23 @@
+"""
+This script implements the self-editing process for the SEAL project.
+
+The script is divided into two main phases:
+
+Phase 1: Generate configs using a self-edit model.
+In this phase, the script uses a language model to generate a set of "self-edit"
+configurations for each task. These configurations specify how to augment the
+training data and what training parameters to use.
+
+Phase 2: Train models using the generated configs.
+In this phase, the script uses the generated configurations to train a set of
+LoRA models. Each model is trained on a different augmented version of the
+training data with different training parameters.
+
+The script is designed to be run from the command line and takes several
+arguments, including the name of the experiment, the path to the challenge and
+solution files, the name of the model to use, and the number of tasks and
+self-edits to perform.
+"""
 import os
 import re
 import json
@@ -268,10 +288,24 @@ def format_and_filter(formatter, tokenizer, task, train_on_input: False):
 def get_test_time_train_data(
     original_task: Task, augmenters: List[Augmenter], n: int = 1, permute_n: int = 1, seed: int = 0
 ) -> List[Task]:
+    """
+    Generates a set of training tasks for a given original task.
+
+    This function creates a set of training tasks by applying a series of
+    augmentations to the original task. The augmentations include basic
+    transformations like rotations and flips, as well as more complex
+    augmentations like increasing the resolution of the images.
+
+    The function also creates new training tasks by leaving out one or more
+    of the original training examples. This is a form of leave-one-out
+    cross-validation and helps to improve the generalization of the model.
+    """
     rng = np.random.RandomState(seed)
     train_examples = original_task.train_examples.copy()
     initial_tasks = []
     N = len(train_examples)
+
+    # Create new tasks by leaving out n-1 training examples.
     for i in range(len(train_examples)):
         examples = train_examples.copy()
         indices = set(range(N)) - {i}
@@ -283,6 +317,7 @@ def get_test_time_train_data(
                 Task(name="", train_examples=[examples[j] for j in comb], test_example=examples[i])
             )
 
+    # Apply augmentations to the initial tasks.
     augmented_tasks = []
     for augmenter in augmenters:
         for task in initial_tasks:
@@ -294,8 +329,8 @@ def get_test_time_train_data(
 
     augmented_tasks = list(set(augmented_tasks + initial_tasks))
 
+    # Permute the colors and examples of the augmented tasks.
     color_and_permute_augmented_tasks = []
-
     for _ in range(permute_n):
         for task in augmented_tasks:
             if len(augmenters) != 0:

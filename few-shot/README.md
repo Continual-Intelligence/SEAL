@@ -1,7 +1,21 @@
 # SEAL - few-shot
 
+This document provides the commands to reproduce the SEAL few-shot learning experiments on the ARC dataset. The goal of these experiments is to demonstrate how SEAL can adapt to new tasks with only a few examples.
+
+The experiments are divided into several steps, including training the base model, evaluating the trained models, and running a baseline evaluation. By following the steps in this guide, you will be able to reproduce the results from the paper.
+
 This document contains the commands to reproduce the SEAL Few Shot Experiments on ARC. 
 Code is adopted from: [Ekin's Repo](https://github.com/ekinakyurek/marc/tree/main)
+
+## Environment Variables
+
+Before running the experiments, you will need to set the following environment variables:
+
+*   `DATA_DIR`: This variable should point to the directory where the ARC dataset is located.
+*   `TTI_DIR`: This variable should point to the directory where the training text-to-image data is located.
+*   `LORA_DIR`: This variable should point to the directory where the LoRA checkpoints will be saved.
+
+Please make sure to set these variables to the correct paths in your environment before running the commands.
 
 ## SEAL RL Iteration 1
 
